@@ -15,12 +15,12 @@ console.log(Backbone);
   var GeoData = Backbone.Model.extend({});
   var GeoDataCollection = Backbone.Collection.extend({
     model: GeoData,
-    url: "/natindex"   
+    url: "data/countries.geo.json"   
   });
   var GeoCoordinates= Backbone.Model.extend({});
   var GeoCoordinatesCollection = Backbone.Collection.extend({
     model: GeoCoordinates,
-    url: "/static/json/country_boundaries.json"
+    url: "data/country_boundaries.json"
   });
 
   GeoMap.geo_data = new GeoDataCollection();
@@ -69,6 +69,9 @@ console.log(Backbone);
 
       boundaries.push({country: country.get('country'), coordinates: country.get('coordinates'), type: country.get('type'), opacity: opacity, data_type: data_type, data_number: data_number});
     });
+
+    console.log(boundaries, boundaries);
+
     _.each(boundaries, function(boundary){ 
       var multipolygon = false;
       if(boundary['type'] === 'MultiPolygon'){
@@ -113,6 +116,7 @@ console.log(Backbone);
       disableAutoPan: true
     });    
     google.maps.event.addListener(polygon, "mouseover", function(event){
+      console.log("mouseover", event.latLng);
       infowindow.setPosition(event.latLng);
       infowindow.open(GeoMap.map);
       polygon.setOptions({strokeWeight:2});
@@ -130,10 +134,12 @@ console.log(Backbone);
       polygon.setOptions({strokeWeight:0.5});
     });
     google.maps.event.addListener(polygon, "click", function(event){
+
       var polygon_bounds = polygon.getBounds();
       var polygon_center = polygon_bounds.getCenter();
       GeoMap.map.setCenter(polygon_center);
       GeoMap.map.fitBounds(polygon_bounds);
+      console.log("click", polygon_bounds);
     });
   };
   google.maps.Polygon.prototype.getBounds = function() {

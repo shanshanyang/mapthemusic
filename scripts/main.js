@@ -2,15 +2,19 @@ require([
   '$api/models',
   // 'scripts/lib/jquery-1.10.1.min',
   // 'scripts/lib/backbone',
-  'scripts/cover-example',
-  'scripts/button-example',
-  'scripts/playlist-example'
-], function(models, coverExample, buttonExample, playlistExample) {
+  // 'scripts/cover-example',
+  // 'scripts/button-example',
+  'scripts/playlist',
+  'scripts/lib/geochart'
+], function(models, coverExample, buttonExample, playlist, geochart) {
   'use strict';
-  	
+
   // coverExample.doCoverForAlbum();
   // buttonExample.doShareButtonForArtist();
   // buttonExample.doPlayButtonForAlbum();
-  playlistExample.doPlaylistForAlbum();
+  // playlist.initPlaylist();
+  geochart.drawRegionsMap();
 
 });
+
+
