@@ -1,19 +1,15 @@
 // load country json
+var dataArr = [];
+for(var key in countries){
+  dataArr.push([key, countries[key]]);
+}
 
 google.load('visualization', '1', {'packages': ['geochart']});
 
 google.setOnLoadCallback(function () {
-  // $(function() {
+
     // load full countries list here
-    var data = google.visualization.arrayToDataTable([
-       ['Country', 'Popularity'],
-          ['Germany', 200],
-          ['United States', 300],
-          ['Brazil', 400],
-          ['Canada', 500],
-          ['France', 600],
-          ['RU', 700]
-      ]);
+    var data = google.visualization.arrayToDataTable(dataArr);
 
     var options = {
         region: 'world',
@@ -26,47 +22,43 @@ google.setOnLoadCallback(function () {
     // add Throbber before char loaded
     require(['$views/throbber#Throbber'],function(Throbber){
       var throbber = Throbber.forElement(charDiv);
+      
+      newThrobber = throbber;
       throbber.hideContent();
       throbber.hide();
       throbber.show();
     });
-
     // add event listeners for RegionClick/ready/select before draw()
     google.visualization.events.addListener(chart, "regionClick", function (eventData) {
         require(['$api/models'],function(models){
-          var player = models.player;
+          var player = models.player,
+              currentTrack = player.track;
+          console.log(currentTrack);
           if(eventData.region === "RU"){
-            alert("you get the answer right");
-           // player.playing = !(player.playing);
-           console.log(player);
+            alert("you get the answer right. " + currentTrack.artists[0].name + " is from " + countries[eventData.region]);
+           player.playing = true;
+           mapmusic.playNextTrack = true;
           }else{
             alert("try again");
-            // player.playing = true;
+            mapmusic.playNextTrack = false;
           }
         });
-        // displaySearchResults(countryISO2, inputCountryToValUpCase); 
-        console.log("regionClick eventData", eventData);
     });
 
     google.visualization.events.addListener(chart, "ready", function (eventData) {
-        console.log("ready eventData", eventData);
-        $('#chart_div').find('path[fill!="#f5f5f5"]').css('cursor', 'pointer');
+        // show content, hide the throbber
+        require(['$views/throbber#Throbber'],function(Throbber){
+            var throbber = Throbber.forElement(charDiv);
+            
+            throbber.hide();
+            throbber.showContent();
+            document.getElementsByClassName("sp-throbber")[0].style.visibility="hidden";
+          });
     });
 
     google.visualization.events.addListener(chart, "select", function (eventData) {
-        // var countryISO2 = eventData["region"];
-        // inputCountryToValUpCase = "world";
-        // displaySearchResults(countryISO2, inputCountryToValUpCase); 
         console.log("select eventData", eventData);
     });
 
     chart.draw(data, options);
-  // });
-    // remove Throbber when the chart is drawn
-   // document.getElementById('chart_div').removeChild(document.getElementsByClassName("sp-throbber"));
-   require(['$views/throbber#Throbber'],function(Throbber){
-      var throbber = Throbber.forElement(charDiv);
-      throbber.hide();
-      throbber.showContent();
-    });
 });

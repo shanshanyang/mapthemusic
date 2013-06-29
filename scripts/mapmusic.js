@@ -13,6 +13,7 @@ require(['$api/models','$views/list#List'], function(models, List) {
         scale: 0,
         translate: 0
     },
+    playNextTrack: false,
   	init: function() {
   		mapmusic.w = window.innerWidth;
         mapmusic.h = window.innerHeight;
