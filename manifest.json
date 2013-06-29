@@ -21,7 +21,8 @@
     "views": "1.10.0"
   },
   "RequiredPermissions": [
-    "https://api.mygreatapp.com"
+    "https://api.mygreatapp.com",
+    "https://*.googleapis.com"
   ],
   "SupportedDeviceClasses": [
     "Web",

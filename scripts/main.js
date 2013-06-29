@@ -1,20 +1,12 @@
 require([
   '$api/models',
-  // 'scripts/lib/jquery-1.10.1.min',
-  // 'scripts/lib/backbone',
-  // 'scripts/cover-example',
-  // 'scripts/button-example',
-  'scripts/playlist',
+  'scripts/region-playlist',
   'scripts/lib/geochart'
-], function(models, coverExample, buttonExample, playlist, geochart) {
+], function(models, regionPlaylist, geochart) {
   'use strict';
 
-  // coverExample.doCoverForAlbum();
-  // buttonExample.doShareButtonForArtist();
-  // buttonExample.doPlayButtonForAlbum();
-  // playlist.initPlaylist();
+  regionPlaylist.initRegionPlaylist();
   geochart.drawRegionsMap();
-
 });
 
 
