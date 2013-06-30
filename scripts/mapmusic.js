@@ -1,4 +1,4 @@
-require(['$api/models','$views/list#List'], function(models, List) {
+require(['$api/models','$views/list#List', '$views/image#Image'], function(models, List, Image) {
 	'use strict';
 
   var mapmusic = {
@@ -42,14 +42,16 @@ require(['$api/models','$views/list#List'], function(models, List) {
 		// Call the init method after it has been added to the DOM
 		list.init();
   	},
-  	getPlayTrack: function() {
-
+  	getPlayTracks: function() {
+  		var track = models.Track.fromURI('spotify:track:0blzOIMnSXUKDsVSHpZtWL'),
+		    image = Image.forTrack(track, {player: true});
+    
   	},
   	getPlayList: function() {
-  		var playlist = models.Playlist.fromURI('spotify:user:spotify:playlist:2lusnaAIIckVJJFKM2upOe');
+  		var playlist = models.Playlist.fromURI('spotify:user:1218163278:playlist:6vWt40sZKHdo0s9MrEwPRA');
 		var list = List.forPlaylist(playlist);
-		document.getElementById('playlistContainer').appendChild(list.node);
-
+		document.getElementById('albumContainer').appendChild(list.node);
+		console.log(playlist);
 		// Call the init method after it has been added to the DOM
 		list.init();
   	}

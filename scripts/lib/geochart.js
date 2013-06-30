@@ -34,13 +34,26 @@ google.setOnLoadCallback(function () {
           var player = models.player,
               currentTrack = player.track;
           console.log(currentTrack);
-          if(eventData.region === "RU"){
+          if(eventData.region === "IT" && currentTrack.name === "La Cumparsita"){
             alert("you get the answer right. " + currentTrack.artists[0].name + " is from " + countries[eventData.region]);
-           player.playing = true;
-           mapmusic.playNextTrack = true;
+           // player.playing = true;
+           // mapmusic.playNextTrack = true;
+           // player.next();
+          }else if(eventData.region === "MX" && currentTrack.name === "El Rey"){
+             alert("you get the answer right. " + currentTrack.artists[0].name + " is from " + countries[eventData.region]);
+           
+          }else if(eventData.region === "GB" && currentTrack.name === "Strawberry Fields Forever - Originally Performed By the Beatles"){
+             alert("you get the answer right. " + currentTrack.artists[0].name + " is from " + countries[eventData.region]);
+           
+          }else if(eventData.region === "MA" && currentTrack.name === "Moroccan Rhythms"){
+             alert("you get the answer right. " + currentTrack.artists[0].name + " is from " + countries[eventData.region]);
+           
+          }else if(eventData.region === "FR" && currentTrack.name === "Django's Tiger - ."){
+             alert("you get the answer right. " + currentTrack.artists[0].name + " is from " + countries[eventData.region]);
+           
           }else{
             alert("try again");
-            mapmusic.playNextTrack = false;
+            // mapmusic.playNextTrack = false;
           }
         });
     });
